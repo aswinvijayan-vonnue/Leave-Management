@@ -1,0 +1,46 @@
+header {
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border);
+}
+.headerSession {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+.profileSession {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.profileinfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+.profileInfoContainer h2 {
+  color: var(--light-white);
+  font-size: 14px;
+}
+.profileInfoContainer p {
+  color: var(--slate-gray);
+  font-size: 14px;
+}
+.profileContainer {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--violet);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.profileContainer span {
+  color: var(--white);
+  font-weight: var(--font-bold);
+}

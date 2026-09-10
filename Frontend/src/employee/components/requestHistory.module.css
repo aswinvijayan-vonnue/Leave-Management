@@ -1,0 +1,66 @@
+@import '../../index.css';
+
+.historyContainer{
+    background-color: var(--dark-navy);
+    margin-top: 32px;
+    padding: 28px;
+    border-radius: 16px;
+}
+.historyTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+.headingRow th{
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    color: var(--border);
+    font-size: 14px;
+
+}
+.emptyReqColumn{
+    padding: 12px;
+    text-align: center;
+    font-size: large;
+    color: var(--border);
+    font-weight: var(--font-bold);
+}
+.historyHeader{
+    color: var(--light-white);
+}
+.reqRow td{
+    padding: 19px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate-gray);
+}
+.reqRow td .highLight{
+    color: var(--light-white);
+    font-weight: 500;
+}
+.reqRow td .leaveBullet{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+.statusContainer{
+    padding: 4px 10px;
+    width: 50px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: auto;
+    font-weight: 500;
+}
+.pending{
+    background-color: var(--warning-yellow-background);
+    color:var(--warning-yellow)
+}
+.approved{
+    background-color: var( --success-green-light);
+    color: var(--success-green);
+}
+.rejected{
+    background-color: var(--error-red-light);
+    color: var(--error-red);
+}
