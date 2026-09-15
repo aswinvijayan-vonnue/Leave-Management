@@ -1,0 +1,115 @@
+@import '../../index.css';
+
+.historyContainer{
+    background-color: var(--dark-navy);
+    margin-top: 32px;
+    padding: 28px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var( --dark-blue-gray);
+}
+.headerSession{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerDiv{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+}
+.historyTable{
+    width: 100%;
+    border-collapse: collapse;
+}
+.headingRow th{
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    color: var(--border);
+    font-size: 14px;
+
+}
+.emptyReqColumn{
+    padding: 12px;
+    text-align: center;
+    font-size: large;
+    color: var(--border);
+    font-weight: var(--font-bold);
+}
+.historyHeader{
+    color: var(--light-white);
+}
+.reqRow td{
+    padding: 19px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--slate-gray);
+}
+
+.pending{
+    background-color: var(--warning-yellow-background);
+    color:var(--warning-yellow)
+}
+.approved{
+    background-color: var( --success-green-light);
+    color: var(--success-green);
+}
+.rejected{
+    background-color: var(--error-red-light);
+    color: var(--error-red);
+}
+.multiVal{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.mainVal{
+    color: var(--light-white);
+    font-weight: 600;
+}
+.subVal{
+    color: var(--slate-gray);
+    font-size: 12px;
+}
+.buttonContainer{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.buttonContainer button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border-style: none;
+    font-weight: 600;
+}
+.rejectButton{
+    background-color: var( --error-red-light);
+    color: var( --error-red);
+    font-weight: 600;
+}
+.approveButton{
+    background-color: var(--violet);
+    color: var(--light-white);
+    font-weight: 600;
+}
+.pendingDiv{
+    padding: 2px 8px;
+    background-color: var(--violet-background);
+    color: var(--violet);
+    font-weight: 600;
+    border-radius: 100px;
+}
+.viewReqDiv{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+.viewReqDiv  .viewDetails {
+    color: var(--violet);
+    font-weight: 600;
+}

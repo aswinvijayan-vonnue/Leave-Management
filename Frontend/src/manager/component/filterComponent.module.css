@@ -1,0 +1,80 @@
+.filterComponent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--dark-navy);
+  border: 1px solid var(--dark-blue-gray);
+  border-radius: 12px;
+  padding: 20px;
+}
+.filteringSession {
+  display: flex;
+  gap: 12px;
+}
+.searchContainer {
+  flex: 1 1 0;
+  background-color: var(--dark-black);
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--dark-blue-gray);
+}
+.searchContainer input {
+  background-color: var(--dark-black);
+  border-style: none;
+  color: var(--slate-gray);
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+}
+.filterComponent select {
+  padding: 10px 65px 10px 10px;
+  color: var(--light-white);
+  background-color: var(--dark-black);
+  border-style: none;
+  border: 1px solid var(--dark-blue-gray);
+  border-radius: 8px;
+}
+
+.activeSession{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+}
+
+.singleStatus{
+    padding: 8px 14px;
+    background-color: var(--dark-blue-gray);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.singleStatus .statusLabel{
+    color: var(--slate-gray);
+    font-weight: 500;
+}
+
+.singleStatus .closeLabel{
+    font-size: 12px;
+    cursor: pointer;
+    padding: 3px 3px 3px 6px;
+}
+.singleStatus .statusVal{
+    font-weight: 500;
+    color: var(--light-white);
+}
+.clearDiv{
+    color: var(--violet);
+    font-weight: 600;
+    cursor: pointer;
+}
+.activeDiv{
+    font-size: 13px;
+    color: var(--slate-gray);
+}

@@ -4,6 +4,9 @@ import EmployeeDashBoard from "./employee/pages/employeeDashBoard";
 import LeaveRequest from "./employee/components/requestForm";
 import ProfilePage from "./pages/profilePage";
 import Login from "./pages/login";
+import ManagerLayout from "./manager/layout/managerLayout";
+import OverViewContent from "./manager/pages/overViewPage";
+import RequestDeatils from "./manager/pages/requestDetailsPage";
 
 function App() {
   return (
@@ -12,7 +15,11 @@ function App() {
       <Route element={<MainEmployeeLayout />}>
         <Route path="/" element={<EmployeeDashBoard />}></Route>
         <Route path="/request" element={<LeaveRequest />}></Route>
-        <Route path="/profile" element={<ProfilePage/>}></Route>
+        <Route path="/profile" element={<ProfilePage />}></Route>
+      </Route>
+      <Route element={<ManagerLayout />}>
+        <Route path="/overview" element={<OverViewContent />}></Route>
+        <Route path="/details" element={<RequestDeatils />}></Route>
       </Route>
     </Routes>
   );

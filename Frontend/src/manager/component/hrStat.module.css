@@ -1,0 +1,36 @@
+@import "../../index.css";
+
+.statContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.singleStat {
+  color: var(--slate-gray);
+  font-weight: 400;
+  flex: 1 1 0;
+  background-color: var(--dark-navy);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: fit-content;
+  border-radius: 16px;
+  border: 1px solid var(--dark-blue-gray);
+}
+.statInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.statVal{
+    color: var(--light-white);
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.status {
+  color: var(--slate-gray);
+  font-weight: 500;
+}
