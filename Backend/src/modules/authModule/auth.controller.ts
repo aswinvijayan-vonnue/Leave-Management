@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { AuthService } from "./auth.service";
+import type { AuthenticatedRequest } from "../../types/types";
 
 const authService = new AuthService();
 
@@ -27,7 +28,7 @@ class AuthController {
 
   async getInfo(request: Request, response: Response, next: NextFunction) {
     try {
-      const id = 200;
+      const id = (request as AuthenticatedRequest).user!.userId;
       const res = await authService.getInfo(id);
       return response.status(201).json({ status: "success", payload: res });
     } catch (err: unknown) {

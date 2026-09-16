@@ -25,6 +25,7 @@ export const signupSchema = z.object({
     z.enum(["employee", "manager"]).optional(),
   ),
   name: z.preprocess(formatName, z.string().min(1)),
+  department: z.preprocess(formatName, z.string().min(1)),
 });
 
 export type LoginType = z.infer<typeof loginSchema>;

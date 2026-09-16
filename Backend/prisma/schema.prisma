@@ -20,5 +20,48 @@ model User {
   email String  @unique
   name  String?
   password String
+  departmentId Int
   role Role @default(employee)
+  leaveInfo LeaveBalance[]
+  department Department @relation(references: [id],fields: [departmentId])
+  leaveRequests LeaveRequestHistory[]
 } 
+
+model Department {
+  id Int @id @default(autoincrement())
+  name String @unique
+  createdAt DateTime @default(now())
+  employees User[]
+}
+
+
+model LeaveBalance{
+  id Int @id @default(autoincrement())
+  employeeId Int
+  year Int
+  annualLeave Int @map("annual_leave")
+  sickLeave Int @map("sick_leave")
+  personalLeave Int @map("personal_leave")
+  usedAnnualLeave Int @map("used_annual_leave") @default(0)
+  usedSickLeave Int @map("used_sick_leave") @default(0)
+  usedPersonalLeave Int @map("used_personal_leave") @default(0)
+
+  employee User @relation(fields: [employeeId],references: [id])
+
+  @@unique([employeeId,year])
+}
+enum Status {
+  Approved
+  Pending
+  Rejected
+}
+model LeaveRequestHistory{
+  id Int @id @default(autoincrement())
+  employeeId Int 
+  from DateTime
+  to DateTime
+  status Status @default(Pending)
+  reason String @db.VarChar(50)
+  appliedOn DateTime @default(now())
+  employee User @relation(fields: [employeeId],references: [id])
+}
