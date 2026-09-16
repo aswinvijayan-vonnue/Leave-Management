@@ -14,6 +14,15 @@ async function main() {
   await prisma.leaveRequestHistory.deleteMany();
   await prisma.user.deleteMany();
   await prisma.department.deleteMany();
+  await prisma.leaveType.deleteMany();
+
+  //leave types
+
+  const [annual, sick, personal] = await Promise.all([
+    prisma.leaveType.create({ data: { name: "Annual Leave" } }),
+    prisma.leaveType.create({ data: { name: "Sick Leave" } }),
+    prisma.leaveType.create({ data: { name: "Personal Leave" } }),
+  ]);
 
   //departments
   const [engineering, marketing, accounting] = await Promise.all([
@@ -69,43 +78,59 @@ async function main() {
       {
         employeeId: emp1.id,
         year: 2026,
-        annualLeave: 20,
-        sickLeave: 15,
-        personalLeave: 20,
-        usedAnnualLeave: 15,
-        usedSickLeave: 2,
-        usedPersonalLeave: 17,
+        leaveTypeId: sick.id,
+        allocatedDays: 20,
+        usedDays: 15,
       },
       {
         employeeId: emp1.id,
-        year: 2025,
-        annualLeave: 20,
-        sickLeave: 15,
-        personalLeave: 20,
-        usedAnnualLeave: 20,
-        usedSickLeave: 12,
-        usedPersonalLeave: 18,
+        year: 2026,
+        leaveTypeId: annual.id,
+        allocatedDays: 20,
+        usedDays: 5,
+      },
+      {
+        employeeId: emp1.id,
+        year: 2026,
+        leaveTypeId: personal.id,
+        allocatedDays: 20,
+        usedDays: 17,
       },
       {
         employeeId: emp2.id,
         year: 2026,
-        annualLeave: 30,
-        sickLeave: 20,
-        personalLeave: 20,
+        leaveTypeId: sick.id,
+        allocatedDays: 20,
+      },
+      {
+        employeeId: emp2.id,
+        year: 2026,
+        leaveTypeId: personal.id,
+        allocatedDays: 10,
+      },
+      {
+        employeeId: emp2.id,
+        year: 2026,
+        leaveTypeId: annual.id,
+        allocatedDays: 20,
       },
       {
         employeeId: emp3.id,
         year: 2026,
-        annualLeave: 30,
-        sickLeave: 20,
-        personalLeave: 20,
+        leaveTypeId: annual.id,
+        allocatedDays: 30,
       },
       {
-        employeeId: emp4.id,
+        employeeId: emp3.id,
         year: 2026,
-        annualLeave: 30,
-        sickLeave: 20,
-        personalLeave: 25,
+        leaveTypeId: sick.id,
+        allocatedDays: 20,
+      },
+      {
+        employeeId: emp3.id,
+        year: 2026,
+        leaveTypeId: personal.id,
+        allocatedDays: 20,
       },
     ],
   });
@@ -116,13 +141,15 @@ async function main() {
         from: new Date("2026-01-01"),
         to: new Date("2026-01-03"),
         status: Status.Approved,
+        leaveTypeId: personal.id,
         reason: "Family function",
       },
-       {
+      {
         employeeId: emp2.id,
         from: new Date("2026-03-11"),
         to: new Date("2026-01-12"),
         status: Status.Rejected,
+        leaveTypeId: personal.id,
         reason: "Personal reason",
       },
       {
@@ -130,15 +157,17 @@ async function main() {
         from: new Date("2026-03-25"),
         to: new Date("2026-03-25"),
         status: Status.Approved,
+        leaveTypeId: annual.id,
         reason: "Personal reason",
       },
-       {
+      {
         employeeId: emp2.id,
         from: new Date("2026-09-25"),
         to: new Date("2026-09-27"),
         status: Status.Rejected,
+        leaveTypeId: sick.id,
         reason: "Medical appointment",
-      }
+      },
     ],
   });
 }

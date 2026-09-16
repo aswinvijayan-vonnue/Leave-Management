@@ -1,6 +1,7 @@
 import express from "express";
 import { ErrorHandler, NotFoundHandler } from "./middleware/error.middleware";
 import authRouter from "./modules/authModule/auth.router";
+import employeeRoutes from "./modules/employeeModule/employeeLeave.router";
 const app = express();
 app.use(express.json());
 
@@ -9,6 +10,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/auth",authRouter);
+app.use("/employee",employeeRoutes);
 
 app.use(NotFoundHandler);
 app.use(ErrorHandler);

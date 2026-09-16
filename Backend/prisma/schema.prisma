@@ -34,21 +34,26 @@ model Department {
   employees User[]
 }
 
+model LeaveType {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(50)
+  
+  leaveBalances LeaveBalance[]
+  leaveRequest LeaveRequestHistory[]
+}
 
 model LeaveBalance{
   id Int @id @default(autoincrement())
   employeeId Int
   year Int
-  annualLeave Int @map("annual_leave")
-  sickLeave Int @map("sick_leave")
-  personalLeave Int @map("personal_leave")
-  usedAnnualLeave Int @map("used_annual_leave") @default(0)
-  usedSickLeave Int @map("used_sick_leave") @default(0)
-  usedPersonalLeave Int @map("used_personal_leave") @default(0)
+  leaveTypeId Int
+  allocatedDays Int
+  usedDays Int @default(0)
 
+  leaveType LeaveType @relation(fields: [leaveTypeId],references: [id])
   employee User @relation(fields: [employeeId],references: [id])
 
-  @@unique([employeeId,year])
+  @@unique([employeeId,year,leaveTypeId])
 }
 enum Status {
   Approved
@@ -58,10 +63,13 @@ enum Status {
 model LeaveRequestHistory{
   id Int @id @default(autoincrement())
   employeeId Int 
+  leaveTypeId Int
   from DateTime
   to DateTime
   status Status @default(Pending)
   reason String @db.VarChar(50)
   appliedOn DateTime @default(now())
+
   employee User @relation(fields: [employeeId],references: [id])
+  leaveType LeaveType @relation(fields: [leaveTypeId],references: [id])
 }
