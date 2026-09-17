@@ -1,9 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import Grid from "../../assets/vectors/grid";
 import File from "../../assets/vectors/file";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.sideBarComponent}>
       <div className={styles.top}>
@@ -43,7 +44,10 @@ const Sidebar = () => {
       </div>
       <div className={styles.middle}></div>
       <div className={styles.bottom}>
-        <div className={styles.profileRect}>
+        <div
+          className={styles.profileRect}
+          onClick={() => navigate("/profile")}
+        >
           <span>MV</span>
         </div>
         <div className={styles.profileText}>

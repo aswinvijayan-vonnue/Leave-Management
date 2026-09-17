@@ -1,12 +1,15 @@
 import styles from "./login.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { login } from "../utils/auth";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<Record<string, string>>({});
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const navigate = useNavigate();
   const validate = () => {
     const newError: Record<string, string> = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -20,11 +23,9 @@ const Login = () => {
     const newErrors = validate();
     setError(newErrors);
     if (Object.keys(newErrors).length > 0) return;
-    const data = {
-      email,
-      password,
-    };
-    console.log(data);
+    login(email, password).then((res) =>
+      res.data.role === "manager" ? navigate("/overview") : navigate("/"),
+    );
     setEmail("");
     setPassword("");
   };
@@ -48,7 +49,9 @@ const Login = () => {
               placeholder="marcus.vance@company.com"
               required
             />
-            {error && error.email && (<span className={styles.error}>{error.email}</span>)}
+            {error && error.email && (
+              <span className={styles.error}>{error.email}</span>
+            )}
           </div>
           <div className={styles.loginInputContainer}>
             <label htmlFor="password">Password</label>
@@ -69,7 +72,9 @@ const Login = () => {
                 {isOpen ? <Eye size={20} /> : <EyeOff size={20} />}
               </button>
             </div>
-            {error && error.password && (<span className={styles.error}>{error.password}</span>)}
+            {error && error.password && (
+              <span className={styles.error}>{error.password}</span>
+            )}
           </div>
           <div className={styles.submitButtonDiv}>
             <button type="submit">Sign in</button>

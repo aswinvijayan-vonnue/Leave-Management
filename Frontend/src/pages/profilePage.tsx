@@ -1,5 +1,6 @@
 import styles from "./profile.module.css";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../utils/auth";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const ProfilePage = () => {
   const handleLogout = () => {
     const isConfirmed = window.confirm("Are you sure want to logout?");
     if (!isConfirmed) return;
+    logout();
     navigate("/login");
   };
   return (
