@@ -1,33 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { LeaveType } from "../../types/types";
 import ArrowIcon from "../../assets/vectors/arrow";
 import styles from "./requestForm.module.css";
+import useLeaveTypes from "../../hooks/useLeaveTypes";
+import api from "../../api/api";
 
 const LeaveRequest = () => {
   const navigate = useNavigate();
-  const [leave, setLeave] = useState<LeaveType>("Annual Leave");
+  const [leave, setLeave] = useState<number | null>(null);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [error, setError] = useState<Record<string, string>>();
-
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { leaves, loading, err } = useLeaveTypes();
+  useEffect(() => {
+    const leaveSetting = () => {
+      if (leaves.length > 0 && leave == null) {
+        setLeave(leaves[0].id);
+      }
+    };
+    leaveSetting();
+  }, [leaves, leave]);
   const clearData = () => {
-    setLeave("Annual Leave");
+    setLeave(1);
     setEndDate("");
     setStartDate("");
     setReason("");
   };
   const validateData = () => {
     const newError: Record<string, string> = {};
-    if (
-      !(
-        leave == "Annual Leave" ||
-        leave == "Personal Leave" ||
-        leave == "Sick Leave"
-      )
-    )
-      newError.leave = "invalid leave type";
     const isValid = (date: string) => {
       const formatted = new Date(date);
       return !isNaN(formatted.getMilliseconds());
@@ -57,11 +59,13 @@ const LeaveRequest = () => {
   };
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     setError({});
     const newErrors = validateData();
     if (Object.keys(newErrors).length > 0) {
       setError(newErrors);
       console.log("Error");
+      setIsSubmitting(false);
       return;
     }
     const data = {
@@ -71,9 +75,25 @@ const LeaveRequest = () => {
       reason,
     };
     console.log(data);
+    api
+      .post("/employee/request", {
+        startDate,
+        endDate,
+        reason,
+        leaveTypeId: leave,
+      })
+      .then(() => navigate("/"))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsSubmitting(false);
+        clearData();
+      });
     clearData();
+    setIsSubmitting(false);
     navigate("/");
   };
+  if (loading) return <p>Loading leave types...</p>;
+  if (err) return <p>Failed to load leave types. Please try again.</p>;
   return (
     <div className={styles.requestDashBoard}>
       <div className={styles.backToDashDiv} onClick={() => navigate("/")}>
@@ -93,12 +113,17 @@ const LeaveRequest = () => {
             <select
               name="LeaveType"
               id="leaveType"
-              onChange={(e) => setLeave(e.target.value as LeaveType)}
-              value={leave}
+              onChange={(e) => setLeave(parseInt(e.target.value))}
+              value={leave ?? ""}
             >
-              <option value="Annual Leave">Annual Leave</option>
-              <option value="Sick Leave">Sick Leave</option>
-              <option value="Personal Leave">Personal Leave</option>
+              <option value="" disabled>
+                Select leave type
+              </option>
+              {leaves.map((data) => (
+                <option key={data.id} value={data.id}>
+                  {data.name}
+                </option>
+              ))}
             </select>
             {error && error.leave && (
               <span className={styles.errorMsg}>{error.leave}</span>
@@ -154,7 +179,11 @@ const LeaveRequest = () => {
             >
               Cancel
             </button>
-            <button type="submit" className={styles.submitButton}>
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={isSubmitting}
+            >
               Submit Request
             </button>
           </div>
