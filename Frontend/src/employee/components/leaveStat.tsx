@@ -1,30 +1,19 @@
 import styles from "./leaveStat.module.css";
 import { useNavigate } from "react-router-dom";
+import type { LeaveStatType } from "../../hooks/useHistory";
 
 type LeaveStateProp = {
-  annualLeave: {
-    total: number;
-    taken: number;
-  };
-  sickLeave: {
-    total: number;
-    taken: number;
-  };
-  personalLeave: {
-    total: number;
-    taken: number;
-  };
+  leaveStats: LeaveStatType[];
 };
-const LeaveState = (LeaveStateInfo: LeaveStateProp) => {
+const LeaveState = (LeaveState: LeaveStateProp) => {
   const navigate = useNavigate();
-  const { annualLeave, sickLeave, personalLeave } = LeaveStateInfo;
-  const annualProgress = Math.floor(
-    (annualLeave.taken / annualLeave.total) * 100,
-  );
-  const personalProgress = Math.floor(
-    (personalLeave.taken / personalLeave.total) * 100,
-  );
-  const sickprogress = Math.floor((sickLeave.taken / sickLeave.total) * 100);
+  const progressCalculator = (total: number, used: number) =>
+    Math.floor((used / total) * 100);
+  const leave_colors:{[key:string]:string}={
+    'Sick Leave': 'var(--warning-yellow)',
+    'Annual Leave':'var( --violet)',
+    'Personal Leave':'var(--info-cyan)'
+  }
   return (
     <div className={styles.leaveBalanceContainer}>
       <div className={styles.leaveBalanceHeader}>
@@ -32,69 +21,29 @@ const LeaveState = (LeaveStateInfo: LeaveStateProp) => {
         <button onClick={() => navigate("/request")}>Request Leave</button>
       </div>
       <div className={styles.statContainer}>
-        <div className={styles.singleStat}>
-          <div className={styles.statInfo}>
-            <p>Annual Leave</p>
-            <p>
-              <span className={styles.mainDay}>
-                {annualLeave.total - annualLeave.taken}
-              </span>
-              <span>/{annualLeave.total} Days</span>
-            </p>
-          </div>
-          <div className={styles.statGraph}>
-            <div
-              className={styles.ring}
-              style={{
-                background: `conic-gradient(var( --violet) ${annualProgress}%, var(--dark-blue-gray) 0)`,
-              }}
-            >
-              <span>{annualProgress}%</span>
+        {LeaveState.leaveStats.map((leaveInfo) => (
+          <div className={styles.singleStat}>
+            <div className={styles.statInfo}>
+              <p>{leaveInfo.leave}</p>
+              <p>
+                <span className={styles.mainDay}>
+                  {leaveInfo.total - leaveInfo.used}
+                </span>
+                <span>/{leaveInfo.total} Days</span>
+              </p>
+            </div>
+            <div className={styles.statGraph}>
+              <div
+                className={styles.ring}
+                style={{
+                  background: `conic-gradient(${leave_colors[leaveInfo.leave]} ${progressCalculator(leaveInfo.total, leaveInfo.used)}%, var(--dark-blue-gray) 0)`,
+                }}
+              >
+                <span>{progressCalculator(leaveInfo.total, leaveInfo.used)}%</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.singleStat}>
-          <div className={styles.statInfo}>
-            <p>Sick Leave</p>
-            <p>
-              <span className={styles.mainDay}>
-                {sickLeave.total - sickLeave.taken}
-              </span>
-              <span>/{sickLeave.total} Days</span>
-            </p>
-          </div>
-          <div className={styles.statGraph}>
-            <div
-              className={styles.ring}
-              style={{
-                background: `conic-gradient(var(--info-cyan) ${sickprogress}%, var(--dark-blue-gray) 0)`,
-              }}
-            >
-              <span>{sickprogress}%</span>
-            </div>
-          </div>
-        </div>
-        <div className={styles.singleStat}>
-          <div className={styles.statInfo}>
-            <p>Personal Leave</p>
-            <p>
-              <span className={styles.mainDay}>
-                {personalLeave.total - personalLeave.taken}
-              </span>
-              <span>/{personalLeave.total} Days</span>
-            </p>
-          </div>
-          <div className={styles.statGraph}>
-            <div
-              className={styles.ring}
-              style={{
-                background: `conic-gradient(var( --warning-yellow) ${personalProgress}%, var(--dark-blue-gray) 0)`,
-              }}
-            >
-              <span>{personalProgress}%</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

@@ -1,32 +1,12 @@
 import styles from "./requestHistory.module.css";
-import type { RequestHistoryType } from "../../types/types";
-const RequestHistoryTable = () => {
-  const requests: RequestHistoryType[] = [
-    {
-      id: "hey",
-      leave: "Annual Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Approved",
-      appliedOn: "25 February",
-    },
-    {
-      id: "hey2",
-      leave: "Personal Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Pending",
-      appliedOn: "25 February",
-    },
-    {
-      id: "hey3",
-      leave: "Sick Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Rejected",
-      appliedOn: "25 February",
-    },
-  ];
+import type { HistoryType } from "../../hooks/useHistory";
+import { dateToString } from "../../utils/dateTime";
+
+type RequestHistoryTableProp = {
+  requests: HistoryType[];
+};
+const RequestHistoryTable = (requestProp:RequestHistoryTableProp) => {
+  const requests=requestProp.requests;
 
   return (
     <div className={styles.historyContainer}>
@@ -60,16 +40,19 @@ const RequestHistoryTable = () => {
                   ></span>
                   {req.leave}
                 </td>
-                <td>{req.from}</td>
-                <td>{req.to}</td>
-                <td className={styles.highLight}>5 Working Days</td>
-                <td
-                >
-                  <span  className={`${styles.statusContainer}
+                <td>{dateToString(req.from)}</td>
+                <td>{dateToString(req.to)}</td>
+                <td className={styles.highLight}>{req.duration} Working Days</td>
+                <td>
+                  <span
+                    className={`${styles.statusContainer}
                 ${req.status == "Approved" ? styles.approved : req.status == "Pending" ? styles.pending : styles.rejected}
-                `}>{req.status}</span>
+                `}
+                  >
+                    {req.status}
+                  </span>
                 </td>
-                <td>{req.appliedOn}</td>
+                <td>{dateToString(req.applied_on)}</td>
               </tr>
             ))}
             {requests.length === 0 && (

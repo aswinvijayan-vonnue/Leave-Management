@@ -35,6 +35,11 @@ export function ErrorHandler(
       status: "error",
       message: err.message,
     });
+  } else if (err instanceof Error) {
+    return res.status(400).json({
+      status: "error",
+      message: err.message,
+    });
   } else {
     return res.status(500).json({
       status: "error",

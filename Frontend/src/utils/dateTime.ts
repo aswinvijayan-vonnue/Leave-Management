@@ -1,6 +1,6 @@
 export function dateToString(data:string){
     const dateObj=new Date(data);
-    if(isNaN(dateObj.getMilliseconds())) return false;
+    if(isNaN(dateObj.getMilliseconds())) return "NaN";
     const formatedDate=dateObj.toLocaleDateString('en-US',{
         month:'short',
         day:'2-digit',

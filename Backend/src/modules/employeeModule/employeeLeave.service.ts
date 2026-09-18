@@ -12,6 +12,7 @@ export class EmployeeService {
     });
     if (!stat) throw new NotFoundError("Record not found");
     return stat.map((data) => ({
+      id:data.id,
       name: data.employee.name,
       employeeId: data.employeeId,
       leave: data.leaveType.name,
@@ -23,8 +24,10 @@ export class EmployeeService {
     const res = await prisma.leaveRequestHistory.findMany({
       where: { employeeId: id },
       include: { employee: true, leaveType: true },
+      orderBy:{appliedOn:'desc'}
     });
     const formattedResult = res.map((data) => ({
+      id:data.id,
       name: data.employee.name,
       employee_id: data.employeeId,
       leave: data.leaveType.name,
