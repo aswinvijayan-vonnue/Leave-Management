@@ -18,17 +18,23 @@ const Login = () => {
     if (!password.trim()) newError.password = "Password should not be empty";
     return newError;
   };
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError({});
-    const newErrors = validate();
-    setError(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
-    login(email, password).then((res) =>
-      res.data.role === "manager" ? navigate("/overview") : navigate("/"),
-    );
-    setEmail("");
-    setPassword("");
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      setError({});
+      const newErrors = validate();
+      setError(newErrors);
+      if (Object.keys(newErrors).length > 0) return;
+      const res = await login(email, password);
+      if (res.data.role === "manager") navigate("/overview");
+      else navigate("/");
+    } catch (err: unknown) {
+      if (err instanceof Error) setError({ server: err.message });
+      console.log("Inside catch block");
+    } finally {
+      setEmail("");
+      setPassword("");
+    }
   };
 
   return (
@@ -49,6 +55,9 @@ const Login = () => {
           <h3>Welcome back</h3>
           <p>Please enter your credentials to access your account</p>
         </div>
+        {error && error.server && (
+          <span className={styles.error}>{error.server}</span>
+        )}
         <form onSubmit={handleSubmit}>
           <div className={styles.loginInputContainer}>
             <label htmlFor="email">Email Address</label>
