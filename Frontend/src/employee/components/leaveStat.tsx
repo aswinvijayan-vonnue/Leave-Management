@@ -10,9 +10,9 @@ const LeaveState = (LeaveState: LeaveStateProp) => {
   const progressCalculator = (total: number, used: number) =>
     Math.floor((used / total) * 100);
   const leave_colors:{[key:string]:string}={
-    'Sick Leave': 'var(--warning-yellow)',
+    'Sick Leave': 'var(--info-cyan)',
     'Annual Leave':'var( --violet)',
-    'Personal Leave':'var(--info-cyan)'
+    'Personal Leave':'var(--warning-yellow)'
   }
   return (
     <div className={styles.leaveBalanceContainer}>
@@ -22,7 +22,7 @@ const LeaveState = (LeaveState: LeaveStateProp) => {
       </div>
       <div className={styles.statContainer}>
         {LeaveState.leaveStats.map((leaveInfo) => (
-          <div className={styles.singleStat}>
+          <div className={styles.singleStat} key={leaveInfo.id}>
             <div className={styles.statInfo}>
               <p>{leaveInfo.leave}</p>
               <p>

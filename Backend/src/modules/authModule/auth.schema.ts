@@ -26,6 +26,7 @@ export const signupSchema = z.object({
   ),
   name: z.preprocess(formatName, z.string().min(1)),
   department: z.preprocess(formatName, z.string().min(1)),
+  title: z.preprocess(formatName, z.string().min(1).optional()),
 });
 
 export type LoginType = z.infer<typeof loginSchema>;

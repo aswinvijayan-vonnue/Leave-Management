@@ -18,10 +18,11 @@ enum Role {
 model User { 
   id    Int     @id @default(autoincrement()) 
   email String  @unique
-  name  String?
+  name  String
   password String
   departmentId Int
   role Role @default(employee)
+  title String ?
   leaveInfo LeaveBalance[]
   department Department @relation(references: [id],fields: [departmentId])
   leaveRequests LeaveRequestHistory[]

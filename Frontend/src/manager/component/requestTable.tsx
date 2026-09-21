@@ -1,48 +1,23 @@
 import styles from "./requestTable.module.css";
-import type { RequestStatusType } from "../../types/types";
+import useRequest from "../../hooks/managerRequestQueue";
+import { dateToString } from "../../utils/dateTime";
+import updateStatus from "../../api/managerStatusUpdate";
+import { useState } from "react";
 
 const RequestTable = () => {
-  const requests: RequestStatusType[] = [
-    {
-      user: {
-        id: "user-101",
-        name: "Amal Raj",
-        role: "Developer",
-      },
-      id: "hey",
-      leave: "Annual Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Approved",
-      appliedOn: "25 February",
-    },
-    {
-      user: {
-        id: "user-101",
-        name: "Priya",
-        role: "Developer",
-      },
-      id: "hey2",
-      leave: "Personal Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Pending",
-      appliedOn: "25 February",
-    },
-    {
-      user: {
-        id: "user-101",
-        name: "Amal Raj",
-        role: "Product Designer",
-      },
-      id: "hey3",
-      leave: "Sick Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Rejected",
-      appliedOn: "25 February",
-    },
-  ];
+  const [loading, setLoading] = useState<boolean>(false);
+  const { requests } = useRequest();
+  const handleClick = async (id: number, status: string) => {
+    setLoading(true);
+    try {
+      await updateStatus(id, status);
+      window.location.reload();
+    } catch (err) {
+      console.error("failed to update status:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.historyBody}>
@@ -64,19 +39,21 @@ const RequestTable = () => {
             <tr key={req.id} className={styles.reqRow}>
               <td>
                 <div className={styles.multiVal}>
-                  <p className={styles.mainVal}>{req.user.name}</p>
-                  <p className={styles.subVal}>{req.user.role}</p>
+                  <p className={styles.mainVal}>{req.name}</p>
+                  <p className={styles.subVal}>{req.role}</p>
                 </div>
               </td>
               <td>
                 <span className={styles.mainVal}>{req.leave}</span>
               </td>
-              <td>{req.from}</td>
-              <td>{req.to}</td>
+              <td>{dateToString(req.from as unknown as string)}</td>
+              <td>{dateToString(req.to as unknown as string)}</td>
               <td>
-                <span className={styles.mainVal}>{7} Days</span>
+                <span className={styles.mainVal}>
+                  {req.duration} {req.duration > 1 ? "Days" : "Day"}
+                </span>
               </td>
-              <td>{req.appliedOn}</td>
+              <td>{dateToString(req.applied_on as unknown as string)}</td>
               <td>
                 <span
                   className={`${styles.statusColumn}
@@ -89,8 +66,20 @@ const RequestTable = () => {
               <td>
                 {req.status === "Pending" && (
                   <div className={styles.buttonContainer}>
-                    <button className={styles.rejectButton}>Reject</button>
-                    <button className={styles.approveButton}>Approve</button>
+                    <button
+                      className={styles.rejectButton}
+                      disabled={loading}
+                      onClick={() => handleClick(req.id, "Rejected")}
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className={styles.approveButton}
+                      disabled={loading}
+                      onClick={() => handleClick(req.id, "Approved")}
+                    >
+                      Approve
+                    </button>
                   </div>
                 )}
               </td>

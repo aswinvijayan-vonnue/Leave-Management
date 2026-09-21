@@ -1,50 +1,25 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import styles from "./approvalQueue.module.css";
-import type { RequestStatusType } from "../../types/types";
 import RightArrow from "../../assets/vectors/rightArrow";
+import useApprovalQueue from "../../hooks/managerApprovalQueue";
+import { dateToString } from "../../utils/dateTime";
+import updateStatus from "../../api/managerStatusUpdate";
 const ApprovalQueue = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const requests: RequestStatusType[] = [
-    {
-      user: {
-        id: "user-101",
-        name: "Amal Raj",
-        role: "Developer",
-      },
-      id: "hey",
-      leave: "Annual Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Approved",
-      appliedOn: "25 February",
-    },
-    {
-      user: {
-        id: "user-101",
-        name: "Priya",
-        role: "Developer",
-      },
-      id: "hey2",
-      leave: "Personal Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Pending",
-      appliedOn: "25 February",
-    },
-    {
-      user: {
-        id: "user-101",
-        name: "Amal Raj",
-        role: "Product Designer",
-      },
-      id: "hey3",
-      leave: "Sick Leave",
-      from: "26 February",
-      to: "1 March",
-      status: "Rejected",
-      appliedOn: "25 February",
-    },
-  ];
+  const { pendingReq } = useApprovalQueue();
+  const handleClick = async (id: number, status: string) => {
+    setLoading(true);
+    try {
+      await updateStatus(id, status);
+      window.location.reload();
+    } catch (err) {
+      console.error("failed to update status:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.historyContainer}>
@@ -52,7 +27,7 @@ const ApprovalQueue = () => {
         <div className={styles.headerDiv}>
           <h2 className={styles.historyHeader}>Approval Queue</h2>
           <div className={styles.pendingDiv}>
-            <span>4</span> Pending
+            <span>{pendingReq.length}</span> Pending
           </div>
         </div>
         <div className={styles.viewReqDiv}>
@@ -79,35 +54,38 @@ const ApprovalQueue = () => {
             </tr>
           </thead>
           <tbody>
-            {requests.map((req) => (
+            {pendingReq.map((req) => (
               <tr key={req.id} className={styles.reqRow}>
                 <td>
                   <div className={styles.multiVal}>
-                    <p className={styles.mainVal}>{req.user.name}</p>
-                    <p className={styles.subVal}>{req.user.role}</p>
+                    <p className={styles.mainVal}>{req.name}</p>
+                    <p className={styles.subVal}>{req.role}</p>
                   </div>
                 </td>
                 <td>
                   <div className={styles.multiVal}>
                     <p className={styles.mainVal}>{req.leave}</p>
                     <p className={styles.subVal}>
-                      {req.from}-{req.to}
+                      {dateToString(req.from as unknown as string)}-
+                      {dateToString(req.to as unknown as string)}
                     </p>
                   </div>
                 </td>
                 <td>
-                  <span className={styles.mainVal}>{7} Days</span>
+                  <span className={styles.mainVal}>
+                    {req.duration} {req.duration > 1 ? "Days" : "Day"}
+                  </span>
                 </td>
-                <td>{req.appliedOn}</td>
+                <td>{dateToString(req.applied_on as unknown as string)}</td>
                 <td>
                   <div className={styles.buttonContainer}>
-                    <button className={styles.rejectButton}>Reject</button>
-                    <button className={styles.approveButton}>Approve</button>
+                    <button className={styles.rejectButton} disabled={loading} onClick={()=>handleClick(req.id,"Rejected")}>Reject</button>
+                    <button className={styles.approveButton} disabled={loading} onClick={()=>handleClick(req.id,"Approved")}>Approve</button>
                   </div>
                 </td>
               </tr>
             ))}
-            {requests.length === 0 && (
+            {pendingReq.length === 0 && (
               <tr>
                 <td colSpan={6} className={styles.emptyReqColumn}>
                   No requests yet

@@ -1,17 +1,19 @@
 import styles from "./hrStat.module.css";
+import useStats from "../../hooks/useStats";
 const HrStatCards = () => {
+  const {stats}=useStats();
   return (
     <div className={styles.statContainer}>
       <div className={styles.singleStat}>
         <div className={styles.statInfo}>
           <p className={styles.status}>Total Requests</p>
-          <p className={styles.statVal}>20</p>
+          <p className={styles.statVal}>{stats.total || 0}</p>
         </div>
       </div>
       <div className={styles.singleStat}>
         <div className={styles.statInfo}>
           <p className={styles.status}>Pending Review</p>
-          <p className={styles.statVal}>12 </p>
+          <p className={styles.statVal}>{stats.pendingCount || 0} </p>
         </div>
       </div>
       <div className={styles.singleStat}>

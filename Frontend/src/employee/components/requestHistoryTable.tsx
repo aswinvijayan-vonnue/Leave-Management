@@ -42,7 +42,7 @@ const RequestHistoryTable = (requestProp:RequestHistoryTableProp) => {
                 </td>
                 <td>{dateToString(req.from)}</td>
                 <td>{dateToString(req.to)}</td>
-                <td className={styles.highLight}>{req.duration} Working Days</td>
+                <td className={styles.highLight}>{req.duration} Working {req.duration==1 ? 'Day' : 'Days'}</td>
                 <td>
                   <span
                     className={`${styles.statusContainer}

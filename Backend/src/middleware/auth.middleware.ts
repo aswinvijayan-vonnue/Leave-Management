@@ -25,16 +25,17 @@ export function requireAuth(
   }
 }
 
-export function authroize(...allowedRoles: string[]) {
+export function authorize(...allowedRoles: string[]) {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     if (!req.user)
       return res
         .status(400)
         .json({ status: "error", message: "Unauthorized access" });
-    if (allowedRoles.includes(req.user.role))
+    if (!allowedRoles.includes(req.user.role))
       return res.status(403).json({
         status: "error",
         message: "You dont have access to this endpoint",
       });
+      next();
   };
 }

@@ -42,6 +42,7 @@ async function main() {
         password: passwordHash,
         departmentId: engineering.id,
         role: Role.employee,
+        title: "Associate Softare Engineer",
       },
     }),
     prisma.user.create({
@@ -51,6 +52,7 @@ async function main() {
         password: passwordHash,
         departmentId: accounting.id,
         role: Role.employee,
+        title: "Accountant",
       },
     }),
     prisma.user.create({
@@ -60,15 +62,17 @@ async function main() {
         password: passwordHash,
         departmentId: marketing.id,
         role: Role.employee,
+        title: "Product Marketing Manager",
       },
     }),
     prisma.user.create({
       data: {
         email: "manager@gmail.com",
-        name: "manager",
+        name: "Marino Davis",
         password: passwordHash,
         departmentId: engineering.id,
         role: Role.manager,
+        title: "Engineering Manager",
       },
     }),
   ]);
