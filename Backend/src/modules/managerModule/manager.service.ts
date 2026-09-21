@@ -47,7 +47,14 @@ export class ManagerService {
   async getPendingRequest() {
     const res = await prisma.leaveRequestHistory.findMany({
       where: { status: "Pending" },
-      include: { employee: true, leaveType: true },
+      include: {
+        employee: {
+          include: {
+            department: true,
+          },
+        },
+        leaveType: true,
+      },
       take: 10,
       orderBy: { appliedOn: "desc" },
     });
@@ -60,6 +67,7 @@ export class ManagerService {
       to: data.to,
       duration: calculateWorkingDays(data.from, data.to),
       applied_on: data.appliedOn,
+      department: data.employee.department.name,
     }));
     return formattedRes;
   }
@@ -77,7 +85,14 @@ export class ManagerService {
   }
   async getRequests() {
     const res = await prisma.leaveRequestHistory.findMany({
-      include: { employee: true, leaveType: true },
+      include: {
+        employee: {
+          include: {
+            department: true,
+          },
+        },
+        leaveType: true,
+      },
       take: 10,
       orderBy: { appliedOn: "desc" },
     });
@@ -91,6 +106,7 @@ export class ManagerService {
       duration: calculateWorkingDays(data.from, data.to),
       applied_on: data.appliedOn,
       status: data.status,
+      department: data.employee.department.name,
     }));
     return formattedRes;
   }
