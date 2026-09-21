@@ -1,0 +1,16 @@
+@import '../../index.css';
+
+.hrHeader{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+.hrHeader h2{
+    font-size: 24px;
+    color: var(--light-white);
+    font-weight: 700;
+}
+.hrHeader p{
+    color: var(--slate-gray);
+}

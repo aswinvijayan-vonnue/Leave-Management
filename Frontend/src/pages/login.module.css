@@ -1,0 +1,106 @@
+@import "../index.css";
+
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginDiv {
+  background-color: var(--dark-navy);
+  border: 1px solid var(--dark-blue-gray);
+  padding: 40px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 28px;
+}
+.loginHeaderDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-direction: column;
+}
+.loginDiv form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.loginDiv form .loginInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.loginDiv form .submitButtonDiv {
+  margin-top: 12px;
+}
+.loginDiv form .submitButtonDiv button {
+  width: 100%;
+  padding: 14px 0px 10px 0px;
+  border-radius: 10px;
+  border-style: none;
+  background-color: var(--violet);
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+.loginDiv form .loginInputContainer label {
+  color: var(--slate-gray);
+}
+.loginDiv form .loginInputContainer .passwordContainer input {
+  background-color: var(--header-background);
+  padding: 12px 16px;
+  border-style: none;
+  border-radius: 8px;
+  color: var(--light-white);
+  font-size: 14px;
+}
+.loginDiv form .loginInputContainer input {
+  background-color: var(--header-background);
+  padding: 12px 16px;
+  border-style: none;
+  border-radius: 8px;
+  color: var(--light-white);
+  border: 1px solid var(--dark-blue-gray);
+  font-size: 14px;
+}
+
+.loginDiv form input::placeholder {
+  color: var(--blue-gray);
+}
+.passwordContainer {
+  background-color: var(--header-background);
+  border-radius: 8px;
+  border: 1px solid var(--dark-blue-gray);
+}
+.eyeIcon {
+  color: var(--blue-gray);
+  background: none;
+  border-style: none;
+  cursor: pointer;
+}
+.passwordContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 12px 0px 0px;
+}
+
+.loginHeaderDiv p{
+  color: var(--slate-gray);
+}
+.loginDiv h3 {
+  font-size: 24px;
+  color: var(--light-white);
+}
+.loginDiv h2{
+  font-size: 20px;
+  color: var(--light-white);
+}
+.error{
+  color: red;
+}

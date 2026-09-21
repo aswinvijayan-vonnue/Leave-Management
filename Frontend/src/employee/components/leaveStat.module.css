@@ -1,0 +1,74 @@
+@import '../../index.css';
+
+
+.statContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.singleStat{
+    color: var(--slate-gray);
+    font-weight: 400;
+    flex: 1 1 0;
+    background-color: var(--dark-navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    height: fit-content;
+    border-radius: 16px;
+}
+.mainDay{
+    color:var(--light-white);
+    font-weight: var(--font-bold);
+    font-size: 24px;
+}
+.ring{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ring::before{
+    content: "";
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: var(--dark-navy);
+}
+.ring span{
+    z-index: 1;
+    color:var(--light-white);
+    font-weight: var(--font-bold);
+
+}
+.leaveBalanceHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.leaveBalanceHeader h2{
+    color:var(--light-white);
+    font-weight: var(--font-bold);
+    font-size: 20px;
+}
+.leaveBalanceHeader button{
+    background-color: var(--violet);
+    color: var(--white);
+    padding: 10px 16px;
+    font-weight: 500;
+    border-style: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.leaveBalanceContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}

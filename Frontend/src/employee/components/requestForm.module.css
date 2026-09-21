@@ -1,0 +1,116 @@
+@import "../../index.css";
+
+.requestDashBoard {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.formSession {
+  background-color: var(--dark-navy);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 24px;
+}
+.formSession form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.labelContainer {
+  display: flex;
+  gap: 16px;
+}
+.labelContainer .inputContainer {
+  flex: 1 1 0;
+}
+.inputContainer textarea {
+  min-height: 100px;
+  background-color: var(--header-background);
+  padding: 16px;
+  border-style: none;
+  border-radius: 8px;
+  color: var(--light-white);
+  border: 1px solid var(--dark-blue-gray);
+  font-size: 14px;
+}
+
+.inputContainer input,
+.inputContainer select {
+  background-color: var(--header-background);
+  padding: 16px;
+  border-style: none;
+  border-radius: 8px;
+  color: var(--light-white);
+  border: 1px solid var(--dark-blue-gray);
+  font-size: 14px;
+}
+.inputContainer label {
+  color: var(--slate-gray);
+}
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.formHeader h2 {
+  color: var(--light-white);
+  font-weight: var(--font-bold);
+}
+.formHeader p{
+    color: var(--slate-gray);
+}
+
+.backToDashDiv{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.arrowContent{
+    color: var(--slate-gray);
+}
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+.buttonContainer .clearButton{
+    padding: 12px 20px;
+    background-color: var(--dark-navy);
+    border-style: none;
+    border: 1px solid var(--dark-blue-gray);
+    border-radius: 8px;
+    color: var(--slate-gray);
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+}
+.buttonContainer .submitButton{
+    padding: 12px 20px;
+    border-style: none;
+    border-radius: 8px;
+    background-color: var(--violet);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+textarea:focus,input:focus{
+    outline: none;
+    border-style: none;
+    border: 1px solid var(--border-gray);
+}
+.errorMsg{
+    color: red;
+}
