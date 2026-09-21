@@ -44,3 +44,13 @@ header {
   color: var(--white);
   font-weight: var(--font-bold);
 }
+
+.logoContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--violet);
+  border-radius: 8px;
+}

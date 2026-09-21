@@ -2,13 +2,25 @@ import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import Grid from "../../assets/vectors/grid";
 import File from "../../assets/vectors/file";
+import LogoIcon from "../../components/logoIcon";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.sideBarComponent}>
       <div className={styles.top}>
-        <h2>LeaveFlow</h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          {" "}
+          <LogoIcon />
+          <h2>LeaveFlow</h2>
+        </div>
         <div className={styles.menu}>
           <div className={styles.itemContent}>
             <NavLink

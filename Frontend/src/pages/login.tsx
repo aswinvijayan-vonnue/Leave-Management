@@ -1,4 +1,5 @@
 import styles from "./login.module.css";
+import LogoIcon from "../components/logoIcon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
@@ -34,7 +35,17 @@ const Login = () => {
     <div className={styles.loginPage}>
       <div className={styles.loginDiv}>
         <div className={styles.loginHeaderDiv}>
-          <h2>LeaveFlow</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <LogoIcon />
+            <h2>LeaveFlow</h2>
+          </div>
           <h3>Welcome back</h3>
           <p>Please enter your credentials to access your account</p>
         </div>
