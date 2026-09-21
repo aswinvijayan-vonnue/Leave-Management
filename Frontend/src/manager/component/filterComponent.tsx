@@ -52,12 +52,12 @@ const FilterComponent = ({
           name="leave"
           onChange={(e) => {
             setLeave(
-              e.target.value === "" ? null : (e.target.value as LeaveType),
+              e.target.value.trim() === "" ? null : (e.target.value as LeaveType),
             );
           }}
           value={leave ? leave : ""}
         >
-          <option value="All">All Leave Types</option>
+          <option value="">All Leave Types</option>
           <option value="Annual Leave">Annual Leave</option>
           <option value="Sick Leave">Sick Leave</option>
           <option value="Personal Leave">Personal Leave</option>

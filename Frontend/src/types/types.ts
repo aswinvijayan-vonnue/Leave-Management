@@ -18,14 +18,15 @@ export type RequestStatusType = RequestHistoryType & {
   };
 };
 
-export type ManagerRequestHistoryType={
-  id:number;
-  name:string;
-  role:string;
-  leave:string;
-  from:Date;
-  to:Date;
-  duration:number;
-  applied_on:Date;
-  status:string
-}
+export type ManagerRequestHistoryType = {
+  id: number;
+  name: string;
+  role: string;
+  leave: string;
+  from: Date;
+  to: Date;
+  duration: number;
+  applied_on: Date;
+  status: string;
+  department: string;
+};

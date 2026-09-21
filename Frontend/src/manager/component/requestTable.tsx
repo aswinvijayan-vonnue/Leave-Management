@@ -2,11 +2,33 @@ import styles from "./requestTable.module.css";
 import useRequest from "../../hooks/managerRequestQueue";
 import { dateToString } from "../../utils/dateTime";
 import updateStatus from "../../api/managerStatusUpdate";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import type { FilterType } from "./filterComponent";
 
-const RequestTable = () => {
+type RequestTableProp = {
+  filter: FilterType;
+};
+
+const RequestTable = (tablePara: RequestTableProp) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const filter = tablePara.filter;
   const { requests } = useRequest();
+  const filteredData = useMemo(() => {
+    return requests.filter((data) => {
+      if (filter.status && data.status !== filter.status) return false;
+      if (filter.leave && data.leave !== filter.leave) return false;
+      if (filter.department && data.department !== filter.department)
+        return false;
+      if (filter.search) {
+        const query = filter.search.toLowerCase();
+        const isMatches =
+          data.name.toLowerCase().includes(query) ||
+          data.role.toLowerCase().includes(query);
+        if (!isMatches) return false;
+      }
+      return true;
+    });
+  }, [requests, filter]);
   const handleClick = async (id: number, status: string) => {
     setLoading(true);
     try {
@@ -35,7 +57,7 @@ const RequestTable = () => {
           </tr>
         </thead>
         <tbody>
-          {requests.map((req) => (
+          {filteredData.map((req) => (
             <tr key={req.id} className={styles.reqRow}>
               <td>
                 <div className={styles.multiVal}>

@@ -30,7 +30,6 @@ const RequestDeatils = () => {
     else if (key === "department") setDepartment(null);
     else if (key === "leave") setLeave(null);
   };
-  console.log(newFilter);
   return (
     <div className={styles.overViewContent}>
       <LeaveRequestHeader />
@@ -48,7 +47,7 @@ const RequestDeatils = () => {
           clearStatus,
         }}
       />
-      <RequestTable />
+      <RequestTable filter={newFilter} />
     </div>
   );
 };

@@ -12,6 +12,7 @@ const ActiveFilters = ({ filter, clearAll, clearStatus }: ActiveFilterProp) => {
     return (
       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
         {Object.entries(filter).map(([key, value]) => {
+          if(key!=='search')
           return (
             <div className={styles.singleStatus} key={key}>
               <span className={styles.statusLabel}>

@@ -9,6 +9,7 @@ export type HistoryType = {
   duration: number;
   status: string;
   applied_on: string;
+  department:string;
 };
 export type LeaveStatType = {
   id: number;
