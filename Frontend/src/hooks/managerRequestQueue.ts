@@ -13,7 +13,7 @@ const useRequest = () => {
     fetchData();
   }, []);
 
-  return {requests};
+  return {requests,setRequests};
 };
 
 export default useRequest;

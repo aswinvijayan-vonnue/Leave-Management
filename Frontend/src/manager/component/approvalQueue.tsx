@@ -8,12 +8,12 @@ import updateStatus from "../../api/managerStatusUpdate";
 const ApprovalQueue = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { pendingReq } = useApprovalQueue();
+  const { pendingReq, setPendingReq } = useApprovalQueue();
   const handleClick = async (id: number, status: string) => {
     setLoading(true);
     try {
       await updateStatus(id, status);
-      window.location.reload();
+      setPendingReq((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
       console.error("failed to update status:", err);
     } finally {
@@ -79,8 +79,20 @@ const ApprovalQueue = () => {
                 <td>{dateToString(req.applied_on as unknown as string)}</td>
                 <td>
                   <div className={styles.buttonContainer}>
-                    <button className={styles.rejectButton} disabled={loading} onClick={()=>handleClick(req.id,"Rejected")}>Reject</button>
-                    <button className={styles.approveButton} disabled={loading} onClick={()=>handleClick(req.id,"Approved")}>Approve</button>
+                    <button
+                      className={styles.rejectButton}
+                      disabled={loading}
+                      onClick={() => handleClick(req.id, "Rejected")}
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className={styles.approveButton}
+                      disabled={loading}
+                      onClick={() => handleClick(req.id, "Approved")}
+                    >
+                      Approve
+                    </button>
                   </div>
                 </td>
               </tr>

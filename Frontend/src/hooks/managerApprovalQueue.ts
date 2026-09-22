@@ -13,7 +13,7 @@ const useApprovalQueue = () => {
     fetchData();
   }, []);
 
-  return { pendingReq };
+  return { pendingReq,setPendingReq };
 };
 
 export default useApprovalQueue;

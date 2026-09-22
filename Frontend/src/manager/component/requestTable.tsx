@@ -12,7 +12,7 @@ type RequestTableProp = {
 const RequestTable = (tablePara: RequestTableProp) => {
   const [loading, setLoading] = useState<boolean>(false);
   const filter = tablePara.filter;
-  const { requests } = useRequest();
+  const { requests, setRequests } = useRequest();
   const filteredData = useMemo(() => {
     return requests.filter((data) => {
       if (filter.status && data.status !== filter.status) return false;
@@ -33,7 +33,11 @@ const RequestTable = (tablePara: RequestTableProp) => {
     setLoading(true);
     try {
       await updateStatus(id, status);
-      window.location.reload();
+      setRequests((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, status: status } : item,
+        ),
+      );
     } catch (err) {
       console.error("failed to update status:", err);
     } finally {
