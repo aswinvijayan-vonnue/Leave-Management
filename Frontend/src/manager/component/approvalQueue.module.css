@@ -110,6 +110,7 @@
     cursor: pointer;
 }
 .viewReqDiv  .viewDetails {
+    text-decoration: none;
     color: var(--violet);
     font-weight: 600;
 }

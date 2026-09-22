@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import {Link } from "react-router-dom";
 import { useState } from "react";
 import styles from "./approvalQueue.module.css";
 import RightArrow from "../../assets/vectors/rightArrow";
@@ -7,7 +7,6 @@ import { dateToString } from "../../utils/dateTime";
 import updateStatus from "../../api/managerStatusUpdate";
 const ApprovalQueue = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
   const { pendingReq, setPendingReq } = useApprovalQueue();
   const handleClick = async (id: number, status: string) => {
     setLoading(true);
@@ -31,12 +30,11 @@ const ApprovalQueue = () => {
           </div>
         </div>
         <div className={styles.viewReqDiv}>
-          <div
+          <Link to="/details"
             className={styles.viewDetails}
-            onClick={() => navigate("/details")}
           >
             View all requests
-          </div>
+          </Link>
           <div>
             <RightArrow />
           </div>
