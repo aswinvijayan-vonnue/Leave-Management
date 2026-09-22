@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;700;500&display=swap");
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --font-primary: "Geist", sans-serif;
+  --font-regular: 400;
+  --font-bold: 700;
+  --slate-gray: #94a3b8;
+  --light-white: #f8fafc;
+  --dark-blue-gray: #232738;
+  --violet: #8b5cf6;
+  --blue-gray: #475569;
+  --dark-navy: #161926;
+  --success-green: #10b981;
+  --success-green-light: #10b9811a;
+  --warning-yellow: #f59e0b;
+  --warning-yellow-background: #f59e0b1a;
+  --info-cyan: #06b6d4;
+  --white: #ffffff;
+  --violet-background: #8b5cf626;
+  --border-gray: #d9d9d9;
+  --error-red: #ef4444;
+  --error-red-light: #ef44441a;
+  --border: #475569;
+  --header-background: #11131c;
+  --border-secondary: #1f2333;
+  --dark-black: #08090d;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-weight: var(--font-regular);
+  background-color: black;
+  font-size: 14px;
+  margin: 8px;
+  color: white;
+}
+
+main {
+  padding: 20px 40px;
+}
